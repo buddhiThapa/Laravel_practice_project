@@ -4,6 +4,7 @@
 
 <!-- Content Start -->
 <div class="content">
+    @include('layouts.DarkPan_section.navbar')
     @yield('content')
     @include('layouts.DarkPan_section.footer')
 </div>

@@ -2,7 +2,6 @@
 
 @section('content')
 
-    @include('layouts.DarkPan_section.navbar')
 
             <!-- Button Start -->
             <div class="container-fluid pt-4 px-4">
