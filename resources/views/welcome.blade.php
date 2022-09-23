@@ -42,8 +42,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <a href="{{ route('Dark-Pan-theme.index') }}" class="btn btn-outline-danger m-2">Dark Pan Them page </a>
+                        <a href="{{ route('Dark-Pan-theme.index') }}" class="btn btn-outline-danger m-2">Admin Panel</a>
                     </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <a href="{{ route('front') }}" class="btn btn-outline-info m-2">Website</a>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <a href="{{ route('Portfolio') }}" class="btn btn-outline-warning m-2">PortFolio</a>
+                    </div>
+                    
+                    
                     {{-- <div class="col-md-5">
                         <input type="file" accept="video/*" name="video" id="video" class="form-control">
                     </div> --}}

@@ -32,6 +32,12 @@ class DarkPan_theme extends Controller
         return redirect()->back()->with('error','Oppes! You have entered invalid credentials');
     }
 
+    //Logout function 
+    function logout(Request $request) {
+        Auth::logout();
+        return redirect()->route('Dark-Pan-theme.Sign_in');
+    }
+
     //Registration View
     function sign_up(){
         return view('darkpan_theme.signup');
@@ -60,5 +66,25 @@ class DarkPan_theme extends Controller
     //Widget View
     function widget(){
         return view('darkpan_theme.widget');
+    }
+
+    //Typography View
+    function typography(){
+        return view('darkpan_theme.typography');
+    }
+
+    //element view
+    function element(){
+        return view('darkpan_theme.element');
+    }
+
+    //Error_page View
+    function error_page(){
+        return view('darkpan_theme.404');
+    }
+
+    //Blank View
+    function blank(){
+        return view('darkpan_theme.blank');
     }
 }

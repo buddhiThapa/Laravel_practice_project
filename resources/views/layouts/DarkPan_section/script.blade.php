@@ -18,6 +18,14 @@
 
 <!-- Template Javascript -->
 <script src="{{ url('DarkPan/js/main.js') }}"></script>
+
+<!-- Side Bar Javascript -->
+
+<script>
+    $('.theme_pages_bt').click(function(){
+        $('.theme_pages').toggle();
+    })
+</script>
 </body>
 
 </html>
