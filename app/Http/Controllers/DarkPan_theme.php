@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+
+
+
 
 class DarkPan_theme extends Controller
 {
 
+
+    
     // Dashboard View
     function index(){
         return view('darkpan_theme.index');
@@ -30,6 +38,12 @@ class DarkPan_theme extends Controller
             return redirect()->route('Dark-Pan-theme.index')->with('success','You have Successfully logged in');
         }
         return redirect()->back()->with('error','Oppes! You have entered invalid credentials');
+    }
+
+    //Logout function 
+    function logout(Request $request) {
+        Auth::logout();
+        return redirect()->route('Dark-Pan-theme.Sign_in');
     }
 
     //Registration View
@@ -60,5 +74,38 @@ class DarkPan_theme extends Controller
     //Widget View
     function widget(){
         return view('darkpan_theme.widget');
+    }
+
+    //Typography View
+    function typography(){
+        return view('darkpan_theme.typography');
+    }
+
+    //element view
+    function element(){
+        return view('darkpan_theme.element');
+    }
+
+    //Error_page View
+    function error_page(){
+        return view('darkpan_theme.404');
+    }
+
+    //Blank View
+    function blank(){
+        $cachedBlog = Redis::get('data');
+        if(isset($cachedBlog)) {
+            $blog = json_decode($cachedBlog, true);
+            $this->data['data'] = $blog;
+            
+        }else {
+            $response = Http::post('http://administration.prabhujipurefood.com/api/product-all', [
+                "perpage"=> "50",
+                "page"=> "1"
+            ]);
+            Redis::set('data',$response);
+            $this->data['data'] = Redis::get('data');
+        }
+        return view('darkpan_theme.blank',$this->data);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DarkPan_theme;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -20,27 +22,46 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('Dark-Pan-theme')->name('Dark-Pan-theme.')->group(function () {
 
+    //DarkPan Them controller
+
     Route::controller(DarkPan_theme::class)->group(function(){
 
-        Route::get('index','index')->name('index');//Dashboard View
-        Route::get('Sign_in','sign_in')->name('Sign_in');//Login View
+        Route::middleware('login_check')->group(function(){
+            Route::get('Sign_in','sign_in')->name('Sign_in');//Login View
+            Route::get('Sign_up','sign_up')->name('Sign_up');//Registration View
+        });
+        
+        Route::middleware('auth')->group(function(){
+            Route::get('index','index')->name('index');//Dashboard View
+            Route::get('button','button')->name('button');//Button View
+            Route::get('chart','chart')->name('chart');//Chart View
+            Route::get('table','table')->name('table');//Table View
+            Route::get('forms','forms')->name('forms');//Form View
+            Route::get('widget','widget')->name('widget');//Widget View
+            Route::get('typography','typography')->name('typography');//Typography View
+            Route::get('element','element')->name('element');//Element View
+            Route::get('error_page','error_page')->name('error_page');//Error_page View
+            Route::get('blank','blank')->name('blank');//Blank View
+        });
+        
         Route::post('login','login')->name('login');//Login Function
-        Route::get('Sign_up','sign_up')->name('Sign_up');//Registration View
-        Route::get('button','button')->name('button');//Button View
-        Route::get('chart','chart')->name('chart');//Chart View
-        Route::get('table','table')->name('table');//Table View
-        Route::get('forms','forms')->name('forms');//Form View
-        Route::get('widget','widget')->name('widget');//Widget View
+        Route::get('logout','logout')->name('logout');//Logout Function
 
-    });
+    });//Dark Pan Controller End
 
+    //Profile Controller
 
-});
+    Route::controller(ProfileController::class)->middleware('auth')->group(function(){
 
+        Route::get('profile','profile')->name('profile');//Profile View
 
-
+    });//Profile Controller End
+});//Dark Pan Theme end
 
 
+
+Route::get('/Front',[FrontController::class,'index'])->name('front');
+Route::get('/Portfolio',[FrontController::class,'proMan_index'])->name('Portfolio');
 
 
 Route::post('ajax_data',function(Request $request){

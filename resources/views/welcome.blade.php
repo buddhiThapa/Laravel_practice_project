@@ -20,10 +20,16 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+            .bg-img {
+                /* background-image: url('{{ url("DarkPan/img/bg9.jpg") }}') !important;
+                background-repeat: no-repeat;
+                background-size: 100vw 100vh ; */
+            }
         </style>
     </head>
+    
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+        <div class="bg-img relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -37,13 +43,19 @@
                     @endauth
                 </div>
             @endif
-
-            
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <a href="{{ route('Dark-Pan-theme.index') }}" class="btn btn-outline-danger m-2">Dark Pan Them page </a>
+                        <a href="{{ route('Dark-Pan-theme.index') }}" class="btn btn-outline-danger m-2">Admin Panel</a>
                     </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <a href="{{ route('front') }}" class="btn btn-outline-info m-2">Website</a>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <a href="{{ route('Portfolio') }}" class="btn btn-outline-warning m-2">PortFolio</a>
+                    </div>
+                    
+                    
                     {{-- <div class="col-md-5">
                         <input type="file" accept="video/*" name="video" id="video" class="form-control">
                     </div> --}}
