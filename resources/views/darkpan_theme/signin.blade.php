@@ -4,7 +4,7 @@
 <!-- Sign In Start -->
 <style>
     .container-fluid {
-        background-image: url('{{ url("DarkPan/img/bg2.jpg") }}') !important;
+        background-image: url('{{ url("DarkPan/img/bg12.jpg") }}') !important;
         background-repeat: no-repeat;
         background-size: 100vw 100vh ;
     }

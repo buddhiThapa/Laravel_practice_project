@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DarkPan_theme;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 //**************************************Dark Pan Theme Route****************** */
 
 Route::prefix('Dark-Pan-theme')->name('Dark-Pan-theme.')->group(function () {
+
+    //DarkPan Them controller
 
     Route::controller(DarkPan_theme::class)->group(function(){
 
@@ -41,14 +44,19 @@ Route::prefix('Dark-Pan-theme')->name('Dark-Pan-theme.')->group(function () {
             Route::get('blank','blank')->name('blank');//Blank View
         });
         
-        
         Route::post('login','login')->name('login');//Login Function
         Route::get('logout','logout')->name('logout');//Logout Function
 
-    });
+    });//Dark Pan Controller End
 
+    //Profile Controller
 
-});
+    Route::controller(ProfileController::class)->middleware('auth')->group(function(){
+
+        Route::get('profile','profile')->name('profile');//Profile View
+
+    });//Profile Controller End
+});//Dark Pan Theme end
 
 
 

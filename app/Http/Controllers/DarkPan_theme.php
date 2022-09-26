@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+
+
+
 
 class DarkPan_theme extends Controller
 {
 
+
+    
     // Dashboard View
     function index(){
         return view('darkpan_theme.index');
@@ -85,6 +93,19 @@ class DarkPan_theme extends Controller
 
     //Blank View
     function blank(){
-        return view('darkpan_theme.blank');
+        $cachedBlog = Redis::get('data');
+        if(isset($cachedBlog)) {
+            $blog = json_decode($cachedBlog, true);
+            $this->data['data'] = $blog;
+            
+        }else {
+            $response = Http::post('http://administration.prabhujipurefood.com/api/product-all', [
+                "perpage"=> "50",
+                "page"=> "1"
+            ]);
+            Redis::set('data',$response);
+            $this->data['data'] = Redis::get('data');
+        }
+        return view('darkpan_theme.blank',$this->data);
     }
 }
