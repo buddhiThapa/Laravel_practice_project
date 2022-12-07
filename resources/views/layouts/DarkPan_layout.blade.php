@@ -5,6 +5,8 @@
 <!-- Content Start -->
 <div class="content">
     @include('layouts.DarkPan_section.navbar')
+    @include('layouts.DarkPan_section.flash-message')
+
     @yield('content')
     @include('layouts.DarkPan_section.footer')
 </div>

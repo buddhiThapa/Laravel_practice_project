@@ -41,6 +41,19 @@
                 </div>
 
             </div>
+
+
+            <div class="extra_page" >
+                <a href="{{ route('Dark-Pan-theme.index') }}" class="nav-item nav-link active"><i class="fa fa-user" aria-hidden="true"></i>Extra Pages</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>User Master</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('Dark-Pan-theme.user.index') }}" class="dropdown-item {{ Request::is('Dark-Pan-theme/user') ? 'active' : ''}}">User List</a>
+                    </div>
+                </div>
+                
+
+            </div>
         </div>
     </nav>
 </div>

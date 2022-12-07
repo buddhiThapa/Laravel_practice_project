@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\DarkPan_theme;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
@@ -56,7 +57,15 @@ Route::prefix('Dark-Pan-theme')->name('Dark-Pan-theme.')->group(function () {
         Route::get('profile','profile')->name('profile');//Profile View
 
     });//Profile Controller End
+
+    //User Controller
+    Route::resource('user', UserController::class);
+    Route::post('user_export',[UserController::class, 'get_user_data'])->name('user.export');
+    Route::post('user_import',[UserController::class,'import'])->name('user.import');
+
 });//Dark Pan Theme end
+
+//**************************************Dark Pan Theme Route End ****************** */
 
 
 
