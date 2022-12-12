@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +18,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory()->count(50)->create();
+        // $role = Role::create(['name' => 'Admin']);
+        // $role->syncPermissions(1);
+
         User::create([
             'email'=>'pro_admin@gmail.com',
             'name'=>"Buddhi Thapa",
-            'password'=>bcrypt('123456')
+            'password'=>Hash::make('123456'),
+            // 'role'=>1
         ]);
+
+        User::factory()->count(50)->create();
+
+        // Role::create(['name'=>'Admin']);
+        // Role::create(['name'=>'User']);
     }
 }

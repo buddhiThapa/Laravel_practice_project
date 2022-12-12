@@ -58,10 +58,12 @@ Route::prefix('Dark-Pan-theme')->name('Dark-Pan-theme.')->group(function () {
 
     });//Profile Controller End
 
-    //User Controller
-    Route::resource('user', UserController::class);
-    Route::post('user_export',[UserController::class, 'get_user_data'])->name('user.export');
-    Route::post('user_import',[UserController::class,'import'])->name('user.import');
+    Route::middleware(['auth'])->group(function () {
+        //User Controller
+        Route::resource('user', UserController::class);
+        Route::post('user_export',[UserController::class, 'get_user_data'])->name('user.export');
+        Route::post('user_import',[UserController::class,'import'])->name('user.import');
+    });
 
 });//Dark Pan Theme end
 

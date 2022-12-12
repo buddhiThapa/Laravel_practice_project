@@ -7,9 +7,11 @@ use App\Imports\Importdata;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportUser;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -17,6 +19,8 @@ class UserController extends Controller
     //USER LIST
     public function index(request $request)
     {
+       
+
         if ($request->ajax()) {
             $data = User::select('*')->where('id','!=',1)->latest('id');
             return Datatables::of($data)
@@ -95,6 +99,7 @@ class UserController extends Controller
     
     public function destroy($id)
     {
+        
         User::find($id)->delete();
         return redirect()->back()->with(['success'=>'Data Deleted Successfully']);
     }
@@ -104,12 +109,13 @@ class UserController extends Controller
         return Excel::download(new UserExport($request), 'User.xlsx');
     }
 
-    
     public function import(request $request){
 
         $data_check = Excel::toArray(new Importdata, $request->file('file'));
+
         if(isset($data_check[0][0]) && !empty($data_check[0][0])){
             $data_check[0][0] = array_filter($data_check[0][0]);
+
             if(count($data_check[0][0]) > 3){//no of column check
                 return redirect()->back()->with(['error'=>'Column Mis-match please download the templete']);
             }

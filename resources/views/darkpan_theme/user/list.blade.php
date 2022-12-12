@@ -28,6 +28,7 @@
                 <th>
                     Error Description
                 </th>
+                
                 {{-- <th>
                     
                 </th> --}}
@@ -52,6 +53,8 @@
     </table>
     @endif
     
+    <br>
+    <br>
     <form action="{{ route('Dark-Pan-theme.user.export') }}" class="row g-4 bg-secondary rounded h-100 p-4" method="post">
         {{ csrf_field() }}
         <div class="col-sm-12">
