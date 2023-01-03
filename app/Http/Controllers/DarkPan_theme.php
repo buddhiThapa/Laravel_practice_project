@@ -23,6 +23,9 @@ class DarkPan_theme extends Controller
 
     //Login View
     function sign_in(){
+        // if(Auth::check()){
+        //     return redirect()->route('index');
+        // }
         return view('darkpan_theme.signin');
     }
 

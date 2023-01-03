@@ -28,7 +28,8 @@
                     <form action="{{ route('Dark-Pan-theme.login') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
+                            {!! Form::email('email', '', ['class'=>'form-control','id'=>'floatingInput','placeholder'=>'name@example.com']) !!}
+                            {{-- <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com"> --}}
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
