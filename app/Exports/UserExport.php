@@ -5,8 +5,14 @@ namespace App\Exports;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use App\Exports\PHPExcel_Style_Fill;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class UserExport implements FromCollection,WithHeadings
+
+
+class UserExport implements FromCollection,WithHeadings,WithEvents,WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -25,7 +31,6 @@ class UserExport implements FromCollection,WithHeadings
             'Id',
             'Name',
             'Email',
-            'City',
             'Created_at',
             'Updated_at' 
         ];
@@ -38,14 +43,56 @@ class UserExport implements FromCollection,WithHeadings
         if($this->request->alphabet!=''){
             $filter_data->where('name','like',$this->request->alphabet.'%');
         }
-        // if ($this->request->start_date!='') {
-        //     $filter_data->where('created_at','>',date('Y-m-d h:i:s' ,strtotime($this->request->start_data)));
-        // }
-        // if ($this->request->end_date!='') {
-        //     $filter_data->where('created_at','<',date('Y-m-d h:i:s' ,strtotime($this->request->end_data)));
-        // }
         
         $filter_data->where('id','>',1)->get();
         return $filter_data->where('id','>',1)->get();
+    }
+
+
+    public function map($code): array{
+
+        
+        return [
+            @$code['id'],
+            @$code['name'],
+            @$code['email'],
+            @$code['created_at'],
+            @$code['updated_at'],
+         ];
+    }
+
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $cellRange = 'A1:M1'; // All headers
+                $styleArray = [
+                                'font' => [
+                                    'bold' => true,
+                                ],
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                                ],
+                                'borders' => [
+                                    'top' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                                    ],
+                                ],
+                                'fill' => [
+                                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                                    'rotation' => 90,
+                                    'startColor' => [
+                                        'argb' => 'FFA0A0A0',
+                                    ],
+                                    'endColor' => [
+                                        'argb' => 'FFFFFFFF',
+                                    ],
+                                ],
+                            ];
+                $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                // $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(13);
+            },     
+        ];
     }
 }
